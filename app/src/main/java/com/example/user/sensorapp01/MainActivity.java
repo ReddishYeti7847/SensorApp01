@@ -13,13 +13,14 @@ import android.util.Log;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
+    CanvasView cv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_main);
 
-        CanvasView cv = new CanvasView(this, null);
+        cv = new CanvasView(this, null);
         setContentView(cv);
 
         SensorManager sm = (SensorManager)this.getSystemService(Context.SENSOR_SERVICE);
@@ -37,6 +38,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void onSensorChanged(SensorEvent sev){
         float[] val = sev.values;
         Log.d("SENSOR", "x:" + val[0] + " y:" + val[1] + " z:" + val[2]);
+
+        cv.setPos(val[0], val[1]);
     }
 
     @Override
